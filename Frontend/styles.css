@@ -1,0 +1,15 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+form, .details-container, .update-form {
+    margin-bottom: 20px;
+}
+label, input {
+    display: block;
+    margin: 5px 0;
+}
+.details-container, .update-form {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
