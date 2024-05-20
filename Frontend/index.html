@@ -10,9 +10,11 @@
 <body>
     <nav>
         <h1>Contact Book (CRUD)</h1>
+        <h3 id="navbar-user">Welcome</h3>
         <div class="btn-cont">
             <button class="btn btn-danger" id="sign-in" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
             <button class="btn btn-danger" id="sign-up" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+            <button class="btn btn-danger d-none" id="logout">Logout</button>
         </div>
     </nav>
     <div class="container mt-5">
@@ -49,7 +51,7 @@
 
     <center><h2 class="card-header bg-success text-white">All Contacts</h2></center>
     <center><button class="btn btn-warning mt-3 " onclick="fetchPersons()">Refresh List</button></center>
-    <div id="persons-container" class="details-container"></div>
+    <div id="persons-container" class="details-container">No Contacts Yet</div>
 
     <div class="container mt-5">
         <div class="alert alert-success d-none" id="update-success-alert" role="alert">
@@ -96,6 +98,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-danger d-none" id="login-alert" role="alert">
+                        Login failed! Please check your credentials.
+                    </div>
+                    <div class="alert alert-success d-none" id="login-success-alert" role="alert">
+                        Login successful!
+                    </div>
                     <form id="sign-in-form">
                         <div class="mb-3">
                             <label for="sign-in-email" class="form-label">Email:</label>
@@ -112,34 +120,41 @@
         </div>
     </div>
 
-    <!-- Sign Up Modal -->
-    <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger d-none" id="signup-alert" role="alert">
+                    Sign up failed! Please try again.
                 </div>
-                <div class="modal-body">
-                    <form id="sign-up-form">
-                        <div class="mb-3">
-                            <label for="sign-up-username" class="form-label">Username:</label>
-                            <input type="text" class="form-control" id="sign-up-username" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="sign-up-email" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="sign-up-email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="sign-up-password" class="form-label">Password:</label>
-                            <input type="password" class="form-control" id="sign-up-password" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Sign Up</button>
-                    </form>
+                <div class="alert alert-success d-none" id="signup-success-alert" role="alert">
+                    Sign up successful!
                 </div>
+                <form id="sign-up-form">
+                    <div class="mb-3">
+                        <label for="sign-up-username" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="sign-up-username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sign-up-email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="sign-up-email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sign-up-password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="sign-up-password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="main.js"></script>

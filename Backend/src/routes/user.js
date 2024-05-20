@@ -10,8 +10,4 @@ userRouter.post('/signin', login);
 userRouter.post('/signup2', register2);
 userRouter.post('/signin2', login2);
 
-userRouter.get('/products', (req, res) => {
-    res.send('Hello User! This is Products Page');
-});
-
 module.exports = userRouter;

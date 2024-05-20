@@ -2,7 +2,7 @@ const userModel = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SecretKey = process.env.SECRET;
-const Salt = process.env.SALT;
+const SaltKey = parseInt(process.env.SALT);
 
 const register = async (req, res) => {
     const { username, email, password } = req.body;
@@ -16,7 +16,7 @@ const register = async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        const hashedPassword = await bcrypt.hash(password, Salt);
+        const hashedPassword = await bcrypt.hash(password, SaltKey);
         const result = await userModel.create({ username: username, email: email, password: hashedPassword });
         const token = jwt.sign({ email: result.email, id: result._id }, SecretKey, { expiresIn: '1h' });
         res.status(201).json({ message: 'User registered successfully', result, token });

@@ -1,4 +1,88 @@
 const apiUrl = 'http://localhost:3000/person';
+const authUrl = 'http://localhost:3000/user';
+
+document.getElementById('sign-in-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = value });
+
+    const response = await fetch(`${authUrl}/signin`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    const result = await response.json();
+    console.log('Login response:', result);
+    
+    if (result.token) {
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('username', result.result.username);
+        document.getElementById('sign-in-form').reset();
+        document.getElementById('login-alert').classList.add('d-none');
+        document.getElementById('login-success-alert').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('login-success-alert').classList.add('d-none');
+        }, 1500);
+        const signInModal = bootstrap.Modal.getInstance(document.getElementById('signInModal'));
+        setTimeout(() => {
+            signInModal.hide();
+        }, 1500);
+        // Update navbar with user's name and logout button
+        document.getElementById('navbar-user').textContent = `Hello, ${localStorage.getItem('username')}`;
+        document.getElementById('sign-in').classList.add('d-none');
+        document.getElementById('sign-up').classList.add('d-none');
+        document.getElementById('logout').classList.remove('d-none');
+    } else {
+        document.getElementById('login-alert').classList.remove('d-none');
+    }
+});
+
+document.getElementById('logout').addEventListener('click', function () {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    document.getElementById('navbar-user').textContent = '';
+    document.getElementById('sign-in').classList.remove('d-none');
+    document.getElementById('sign-up').classList.remove('d-none');
+    document.getElementById('logout').classList.add('d-none');
+});
+
+document.getElementById('sign-up-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = value });
+    console.log('Sign Up data:', data);
+
+    const response = await fetch(`${authUrl}/signup`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    const result = await response.json();
+    console.log('Sign Up response:', result);
+    console.log('Sign Up response status:', response);
+    if (response.status === 201 && response.ok) {
+        document.getElementById('sign-up-form').reset();
+        document.getElementById('signup-alert').classList.add('d-none');
+        document.getElementById('signup-success-alert').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('signup-success-alert').classList.add('d-none');
+        }, 1500);
+        const signUpModal = bootstrap.Modal.getInstance(document.getElementById('signUpModal'));
+        setTimeout(() => {
+            signUpModal.hide();
+        }, 1500);
+    } else {
+        document.getElementById('signup-alert').classList.remove('d-none');
+    }
+});
+
+
 
 document.getElementById('create-form').addEventListener('submit', async function (e) {
     e.preventDefault();
