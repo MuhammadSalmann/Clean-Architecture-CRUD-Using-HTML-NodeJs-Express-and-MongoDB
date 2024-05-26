@@ -134,9 +134,12 @@ document.getElementById('update-form').addEventListener('submit', async function
 async function fetchPersons() {
     const response = await fetch(apiUrl);
     const persons = await response.json();
+    console.log('Persons:', persons);
+    console.log('Persons:', persons.persons);
+    const personArr = persons.persons;
     const container = document.getElementById('persons-container');
     container.innerHTML = '';
-    persons.forEach(person => {
+    personArr.forEach(person => {
         const personDiv = document.createElement('div');
         personDiv.innerHTML = `
         <div class="container mt-5">
