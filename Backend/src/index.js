@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const personRouter = require('./routes/person')
 const userRouter = require('./routes/user.js');
 
-// Contect to the database
+// Connect to the database
 const connection = require('./db');
 connection();
 
