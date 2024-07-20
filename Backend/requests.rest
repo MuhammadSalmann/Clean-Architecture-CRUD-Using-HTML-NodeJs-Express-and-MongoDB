@@ -1,0 +1,11 @@
+POST http://localhost:3000/user/signin
+Content-Type: application/json
+
+{
+    "email": "abc@gmail.com",
+    "password": "abc123"
+}
+
+###
+GET http://localhost:3000/user
+Authorization: Bearer your_token_here
